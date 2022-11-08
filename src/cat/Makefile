@@ -9,8 +9,7 @@ s21_cat: s21_cat.c s21_cat.h
 clean: 
 	rm -f s21_cat
 
-rebuild:
-	clean s21_cat
+rebuild: clean s21_cat
 
 check:
 	cp ../../materials/linters/clang-format ../../src/cat/clang-format

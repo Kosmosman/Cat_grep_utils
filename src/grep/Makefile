@@ -9,8 +9,7 @@ s21_grep: s21_grep.c s21_grep.h
 clean:
 	rm -f s21_grep
 
-rebuild:
-	clean s21_grep
+rebuild: clean s21_grep
 
 check:
 	cp ../../materials/linters/clang-format ../../src/grep/clang-format
