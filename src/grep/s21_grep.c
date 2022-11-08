@@ -193,7 +193,7 @@ void make_pcre_patterns(grep_flags *flags) {
   re = compile_pattern(flags, flags->patterns);
   for (long unsigned int i = 0; i < flags->count_files; i++) {
     stream = fopen(flags->files[i], "r");
-    if (stream && re) {
+    if (stream) {
       while (!(feof(stream))) {
         string_num++;
         str[0] = '\0';
@@ -261,7 +261,7 @@ pcre *compile_pattern(grep_flags *flags, char *pattername) {
   if (!re) {
     free_memory(flags);
     free(re);
-    re = NULL;
+    exit(num_error);
   }
   return re;
 }
@@ -276,16 +276,12 @@ void do_flag_o(grep_flags *flags, char *str) {
   char single_pattern[1024] = {0};
   single_pattern[0] = '\0';
   start_pos = str;
-  int out = 1;
-  for (long unsigned int c = 0; out && c <= strlen(flags->patterns); c++) {
+  for (long unsigned int c = 0; c <= strlen(flags->patterns); c++) {
     if (flags->patterns[c] == '|' || flags->patterns[c] == '\0') {
       single_pattern[single_pattern_pos] = '\0';
       single_pattern_pos = 0;
       re = compile_pattern(flags, single_pattern);
-      if (re == NULL) {
-        out = 0;
-      }
-      while (out && (strlen(start_pos) >= strlen(single_pattern)) &&
+      while ((strlen(start_pos) >= strlen(single_pattern)) &&
              (count = pcre_exec(re, NULL, start_pos, strlen(str), 0, 0, buffer,
                                 sizeof(buffer))) > 0 &&
              (strlen(str) >= (present_pos + buffer[1] - 1))) {
@@ -296,9 +292,7 @@ void do_flag_o(grep_flags *flags, char *str) {
         start_pos = &start_pos[buffer[1]];
         present_pos += buffer[1];
       }
-      if (re) {
-        free(re);
-      }
+      free(re);
     } else {
       single_pattern[single_pattern_pos++] = flags->patterns[c];
     }
