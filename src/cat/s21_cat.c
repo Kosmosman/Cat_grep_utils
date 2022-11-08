@@ -4,9 +4,9 @@
 #include <string.h>
 
 int main(int argc, char *argv[]) {
-  int check;
-  char ch;
-  FILE *stream;
+  int check = 0;
+  char ch = 0;
+  FILE *stream = NULL;
   struct cat_flags flags = {0, 0, 0, 0, 0, 0, 0, 0, 0};
   check = sort_flags(&flags, argc, argv);
   if (check) {
@@ -121,7 +121,7 @@ void rewrite(FILE *input, FILE *output) {
 
 void numerate_nonempty_strings(FILE *input, FILE *output) {
   long int end_pos = end_of_file(input);
-  char ch;
+  char ch = ' ';
   int end = check_position(end_pos, input);
   for (int i = 1; end; i++) {
     ch = fgetc(input);
@@ -144,7 +144,7 @@ void numerate_nonempty_strings(FILE *input, FILE *output) {
 }
 
 void end_of_strings(FILE *input, FILE *output) {
-  char ch;
+  char ch = ' ';
   long int end_pos = end_of_file(input);
   int end = check_position(end_pos, input);
   while (end) {
@@ -160,7 +160,7 @@ void end_of_strings(FILE *input, FILE *output) {
 }
 
 void numerate_all_strings(FILE *input, FILE *output) {
-  char str[1000];
+  char str[1000] = {0};
   for (int i = 1; fgets(str, sizeof(str), input); i++) {
     if (str[0] != EOF) {
       fprintf(output, "%6d\t", i);
@@ -171,7 +171,7 @@ void numerate_all_strings(FILE *input, FILE *output) {
 }
 
 void squeeze_blank(FILE *input, FILE *output) {
-  char ch;
+  char ch = ' ';
   long int end_pos = end_of_file(input);
   int end = check_position(end_pos, input);
   while (end) {
@@ -194,7 +194,7 @@ void squeeze_blank(FILE *input, FILE *output) {
 }
 
 void display_tabs(FILE *input, FILE *output) {
-  char ch;
+  char ch = ' ';
   long int end_pos = end_of_file(input);
   int end = check_position(end_pos, input);
   while (end) {
@@ -221,7 +221,7 @@ void display_invisible_symbols(int ch, FILE *output) {
 }
 
 void cat_flag_v(FILE *input, FILE *output) {
-  char ch;
+  char ch = ' ';
   long int end_pos = end_of_file(input);
   int end = check_position(end_pos, input);
   while (end) {
@@ -232,7 +232,7 @@ void cat_flag_v(FILE *input, FILE *output) {
 }
 
 long int end_of_file(FILE *input) {
-  long int end_pos;
+  long int end_pos = 0;
   fseek(input, 0, SEEK_END);
   end_pos = ftell(input);
   fseek(input, 0, SEEK_SET);
