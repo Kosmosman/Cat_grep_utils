@@ -1,3 +1,4 @@
+// Copyright joaquind 2022
 #ifndef SRC_CAT_FUNCTIONS_H_
 #define SRC_CAT_FUNCTIONS_H_
 #include <stdio.h>

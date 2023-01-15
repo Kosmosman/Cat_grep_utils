@@ -1,3 +1,4 @@
+// Copyright joaquind 2022
 #include "s21_cat.h"
 
 #include <stdio.h>

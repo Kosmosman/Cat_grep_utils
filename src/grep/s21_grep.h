@@ -1,3 +1,4 @@
+// Copyright joaquind 2022
 #ifndef _SRC_GREP_FUNCTIONS_H_
 #define _SRC_GREP_FUNCTIONS_H_
 #include <pcre.h>
